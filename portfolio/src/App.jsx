@@ -612,6 +612,7 @@ const ContactSection = () => {
     message: "",
   });
 
+  // ERROR FIXED: Removed "e: React.FormEvent" type definition to make it valid JSX
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Thanks for reaching out! I'll get back to you soon.");
@@ -762,6 +763,7 @@ const Footer = () => {
 // ==========================================
 // 8. LampIntro Component
 // ==========================================
+// ERROR FIXED: Removed "{ onReveal: () => void }" type definition
 const LampIntro = ({ onReveal }) => {
   const [phase, setPhase] = useState("idle");
   const [hovering, setHovering] = useState(false);
