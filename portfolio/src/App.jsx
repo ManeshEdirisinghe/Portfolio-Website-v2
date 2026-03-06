@@ -2,41 +2,25 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter } from "lucide-react";
 
-// CSS Styles (Combined from index.css and App.css)
+// CSS Styles (Combined)
 const globalStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
   :root {
     --background: 220 20% 7%;
     --foreground: 40 20% 90%;
-    --card: 220 15% 12%;
-    --card-foreground: 40 20% 90%;
-    --popover: 220 15% 12%;
-    --popover-foreground: 40 20% 90%;
     --primary: 42 80% 55%;
     --primary-foreground: 220 20% 7%;
     --secondary: 220 15% 16%;
-    --secondary-foreground: 40 20% 85%;
     --muted: 220 12% 18%;
     --muted-foreground: 220 10% 55%;
-    --accent: 42 60% 45%;
-    --accent-foreground: 220 20% 7%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
     --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 42 80% 55%;
-    --radius: 0.75rem;
     --glass: 220 15% 15%;
     --glass-border: 220 10% 25%;
     --glow: 42 80% 55%;
     --syntax-green: 142 60% 55%;
     --syntax-blue: 217 80% 65%;
     --syntax-dot-green: 142 60% 50%;
-  }
-
-  * {
-    border-color: hsl(var(--border));
   }
 
   body {
@@ -66,10 +50,6 @@ const globalStyles = `
 
   .glow-amber {
     box-shadow: 0 0 40px hsl(var(--glow) / 0.15), 0 0 80px hsl(var(--glow) / 0.05);
-  }
-
-  .glow-text {
-    text-shadow: 0 0 30px hsl(var(--glow) / 0.4);
   }
 
   .gradient-gold {
@@ -181,10 +161,8 @@ const Navbar = () => {
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Ambient light */}
       <div className="absolute inset-0 lamp-light pointer-events-none" />
 
-      {/* Floating particles */}
       {Array.from({ length: 6 }).map((_, i) => (
         <motion.div
           key={i}
@@ -206,7 +184,6 @@ const HeroSection = () => {
       ))}
 
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center pt-24">
-        {/* Left: code intro */}
         <div className="relative flex flex-col items-center lg:items-start">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -240,7 +217,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Right: Hero text + portrait */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -357,7 +333,6 @@ const AboutSection = () => {
               solutions.
             </p>
 
-            {/* Terminal-style fun fact */}
             <div className="code-block rounded-xl p-4 font-mono text-sm">
               <p className="text-[hsl(220,10%,55%)]">
                 <span className="text-[#f5a623]">$</span> whoami
@@ -369,7 +344,6 @@ const AboutSection = () => {
             </div>
           </motion.div>
 
-          {/* Stats grid */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -612,8 +586,7 @@ const ContactSection = () => {
     message: "",
   });
 
-  // ERROR FIXED: Removed "e: React.FormEvent" type definition to make it valid JSX
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Thanks for reaching out! I'll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
@@ -763,9 +736,8 @@ const Footer = () => {
 // ==========================================
 // 8. LampIntro Component
 // ==========================================
-// ERROR FIXED: Removed "{ onReveal: () => void }" type definition
-const LampIntro = ({ onReveal }) => {
-  const [phase, setPhase] = useState("idle");
+const LampIntro = ({ onReveal }: { onReveal: () => void }) => {
+  const [phase, setPhase] = useState<"idle" | "pulling" | "flicker" | "on" | "flood">("idle");
   const [hovering, setHovering] = useState(false);
 
   const isLit = phase === "flicker" || phase === "on" || phase === "flood";
