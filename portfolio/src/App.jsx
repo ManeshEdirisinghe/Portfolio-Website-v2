@@ -1,35 +1,959 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter } from "lucide-react";
 
-function App() {
-  const [count, setCount] = useState(0)
+// CSS Styles (Combined from index.css and App.css)
+const globalStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 40 20% 90%;
+    --card: 220 15% 12%;
+    --card-foreground: 40 20% 90%;
+    --popover: 220 15% 12%;
+    --popover-foreground: 40 20% 90%;
+    --primary: 42 80% 55%;
+    --primary-foreground: 220 20% 7%;
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 40 20% 85%;
+    --muted: 220 12% 18%;
+    --muted-foreground: 220 10% 55%;
+    --accent: 42 60% 45%;
+    --accent-foreground: 220 20% 7%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 42 80% 55%;
+    --radius: 0.75rem;
+    --glass: 220 15% 15%;
+    --glass-border: 220 10% 25%;
+    --glow: 42 80% 55%;
+    --syntax-green: 142 60% 55%;
+    --syntax-blue: 217 80% 65%;
+    --syntax-dot-green: 142 60% 50%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .glass {
+    background: hsl(var(--glass) / 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border) / 0.3);
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass) / 0.6);
+    backdrop-filter: blur(30px);
+    border: 1px solid hsl(var(--glass-border) / 0.4);
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 40px hsl(var(--glow) / 0.15), 0 0 80px hsl(var(--glow) / 0.05);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 30px hsl(var(--glow) / 0.4);
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(42, 80%, 55%), hsl(38, 70%, 45%));
+  }
+
+  .gradient-gold-text {
+    background: linear-gradient(135deg, hsl(42, 80%, 60%), hsl(38, 70%, 50%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lamp-light {
+    background: radial-gradient(ellipse at center top, hsl(42, 60%, 70%, 0.12) 0%, transparent 60%);
+  }
+
+  .code-block {
+    background: hsl(220, 20%, 10%);
+    border: 1px solid hsl(220, 15%, 18%);
+  }
+`;
+
+// ==========================================
+// 1. Navbar Component
+// ==========================================
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
+];
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="fixed top-0 left-0 right-0 z-50 glass-strong"
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#home" className="text-xl font-bold gradient-gold-text">
+          {"<dev />"}
         </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            className="px-5 py-2 text-sm font-medium gradient-gold text-[#0f172a] rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Hire Me
+          </a>
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-white"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden glass-strong border-t border-gray-800"
+          >
+            <div className="px-6 py-4 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+};
+
+// ==========================================
+// 2. HeroSection Component
+// ==========================================
+const HeroSection = () => {
+  return (
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Ambient light */}
+      <div className="absolute inset-0 lamp-light pointer-events-none" />
+
+      {/* Floating particles */}
+      {Array.from({ length: 6 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-[#f5a623]/30"
+          style={{
+            left: `${20 + i * 12}%`,
+            top: `${30 + (i % 3) * 15}%`,
+          }}
+          animate={{
+            y: [-10, 10, -10],
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{
+            duration: 3 + i,
+            repeat: Infinity,
+            delay: i * 0.5,
+          }}
+        />
+      ))}
+
+      <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center pt-24">
+        {/* Left: code intro */}
+        <div className="relative flex flex-col items-center lg:items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="code-block rounded-xl p-6 w-full max-w-md font-mono text-sm"
+          >
+            <div className="flex gap-2 mb-4">
+              <div className="w-3 h-3 rounded-full bg-red-500/70" />
+              <div className="w-3 h-3 rounded-full bg-[#f5a623]/70" />
+              <div className="w-3 h-3 rounded-full bg-green-500/70" />
+            </div>
+            <div className="space-y-1">
+              <p>
+                <span className="text-[#f5a623]">const</span> <span className="text-blue-400">developer</span> <span className="text-[hsl(220,10%,55%)]">=</span> {"{"}
+              </p>
+              <p className="pl-4">
+                <span className="text-green-400">name</span>: <span className="text-[#f5a623]">"Alex Rivera"</span>,
+              </p>
+              <p className="pl-4">
+                <span className="text-green-400">role</span>: <span className="text-[#f5a623]">"Full-Stack Engineer"</span>,
+              </p>
+              <p className="pl-4">
+                <span className="text-green-400">passion</span>: <span className="text-[#f5a623]">"UI/UX Design"</span>,
+              </p>
+              <p className="pl-4">
+                <span className="text-green-400">status</span>: <span className="text-[#f5a623]">"Open to work"</span>,
+              </p>
+              <p>{"}"}</p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right: Hero text + portrait */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-center lg:text-left"
+        >
+          <div>
+            <p className="text-[#f5a623] font-mono text-sm mb-4 tracking-wider">
+              // Welcome to my world
+            </p>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-4 leading-tight">
+              Software
+              <br />
+              <span className="gradient-gold-text">Engineer</span>
+              <br />
+              <span className="text-[hsl(220,10%,55%)] text-3xl lg:text-4xl">
+                & UI/UX Designer
+              </span>
+            </h1>
+            <p className="text-[hsl(220,10%,55%)] text-lg max-w-md mb-8 mx-auto lg:mx-0">
+              Crafting digital experiences where code meets creativity. Every
+              pixel tells a story, every function has a purpose.
+            </p>
+
+            <div className="flex gap-4 justify-center lg:justify-start">
+              <a
+                href="#projects"
+                className="px-6 py-3 gradient-gold text-[#0f172a] rounded-xl font-medium hover:opacity-90 transition-opacity glow-amber"
+              >
+                View Projects
+              </a>
+              <a
+                href="#contact"
+                className="px-6 py-3 glass rounded-xl font-medium text-white hover:border-[#f5a623]/50 transition-colors"
+              >
+                Get in Touch
+              </a>
+            </div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-10 flex justify-center lg:justify-start"
+          >
+            <div className="relative">
+              <div className="w-48 h-48 rounded-full overflow-hidden border-2 border-[#f5a623]/30 glow-amber bg-gray-800">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                  alt="Alex Rivera - Software Engineer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 px-3 py-1 glass rounded-full text-xs font-mono text-[#f5a623]">
+                ● Available
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// 3. AboutSection Component
+// ==========================================
+const stats = [
+  { icon: Code2, label: "Years Experience", value: "5+" },
+  { icon: Palette, label: "Projects Delivered", value: "40+" },
+  { icon: Zap, label: "Technologies", value: "15+" },
+  { icon: Coffee, label: "Cups of Coffee", value: "∞" },
+];
+
+const AboutSection = () => {
+  return (
+    <section id="about" className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <p className="text-[#f5a623] font-mono text-sm mb-2">// About me</p>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12">
+            Designing the <span className="gradient-gold-text">future</span>,
+            <br />
+            one line at a time.
+          </h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-6"
+          >
+            <p className="text-[hsl(220,10%,55%)] text-lg leading-relaxed">
+              I'm a software engineer and UI/UX designer who believes that great
+              software is invisible — it just works beautifully. With a
+              background spanning frontend architecture, design systems, and
+              user research, I bridge the gap between what looks good and what
+              works well.
+            </p>
+            <p className="text-[hsl(220,10%,55%)] leading-relaxed">
+              When I'm not pushing pixels or debugging code, you'll find me
+              exploring new design trends, contributing to open source, or
+              sketching interfaces in my notebook. I believe in the power of
+              thoughtful design to transform complex problems into elegant
+              solutions.
+            </p>
+
+            {/* Terminal-style fun fact */}
+            <div className="code-block rounded-xl p-4 font-mono text-sm">
+              <p className="text-[hsl(220,10%,55%)]">
+                <span className="text-[#f5a623]">$</span> whoami
+              </p>
+              <p className="text-white mt-1">
+                → A curious mind who turns caffeine into code & pixels into
+                experiences.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Stats grid */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="grid grid-cols-2 gap-4"
+          >
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 + i * 0.1 }}
+                className="glass rounded-2xl p-6 text-center group hover:glow-amber transition-shadow duration-500"
+              >
+                <stat.icon className="w-6 h-6 text-[#f5a623] mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <p className="text-3xl font-bold gradient-gold-text mb-1">
+                  {stat.value}
+                </p>
+                <p className="text-xs text-[hsl(220,10%,55%)]">{stat.label}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// 4. ProjectsSection Component
+// ==========================================
+const projects = [
+  {
+    title: "FinFlow Dashboard",
+    description: "A comprehensive fintech dashboard with real-time analytics, dark-mode glassmorphic UI, and intelligent data visualization.",
+    tags: ["React", "TypeScript", "D3.js", "Tailwind"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Lumina Social",
+    description: "Mobile-first social media platform featuring AI-driven content curation, seamless interactions, and a signature amber dark theme.",
+    tags: ["React Native", "Node.js", "PostgreSQL", "Figma"],
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    title: "Nexus Portfolio",
+    description: "An immersive 3D portfolio experience with floating elements, particle systems, and scroll-driven animations.",
+    tags: ["Three.js", "GSAP", "WebGL", "Framer Motion"],
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
+  },
+];
+
+const ProjectsSection = () => {
+  return (
+    <section id="projects" className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <p className="text-[#f5a623] font-mono text-sm mb-2">
+            // Selected work
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-bold">
+            Featured <span className="gradient-gold-text">Projects</span>
+          </h2>
+        </motion.div>
+
+        <div className="space-y-20">
+          {projects.map((project, i) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className={`grid lg:grid-cols-2 gap-8 items-center ${
+                i % 2 === 1 ? "lg:flex-row-reverse" : ""
+              }`}
+            >
+              <div className={`${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                <div className="glass rounded-2xl overflow-hidden group">
+                  <div className="overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-64 lg:h-80 object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className={`${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                <span className="text-[#f5a623] font-mono text-xs">
+                  0{i + 1}
+                </span>
+                <h3 className="text-3xl font-bold mt-2 mb-4">
+                  {project.title}
+                </h3>
+                <p className="text-[hsl(220,10%,55%)] mb-6 leading-relaxed">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-xs font-mono glass rounded-full text-[#f5a623]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <button className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors">
+                    <ExternalLink size={16} /> Live Demo
+                  </button>
+                  <button className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors">
+                    <Github size={16} /> Source
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// 5. SkillsSection Component
+// ==========================================
+const skillCategories = [
+  {
+    title: "Frontend",
+    skills: [
+      { name: "React / Next.js", level: 95 },
+      { name: "TypeScript", level: 90 },
+      { name: "Tailwind CSS", level: 92 },
+      { name: "Framer Motion", level: 85 },
+    ],
+  },
+  {
+    title: "Backend",
+    skills: [
+      { name: "Node.js", level: 88 },
+      { name: "PostgreSQL", level: 82 },
+      { name: "REST / GraphQL", level: 86 },
+      { name: "Docker", level: 75 },
+    ],
+  },
+  {
+    title: "Design",
+    skills: [
+      { name: "Figma", level: 93 },
+      { name: "UI/UX Research", level: 88 },
+      { name: "Design Systems", level: 90 },
+      { name: "Prototyping", level: 85 },
+    ],
+  },
+];
+
+const SkillsSection = () => {
+  return (
+    <section id="skills" className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <p className="text-[#f5a623] font-mono text-sm mb-2">
+            // Tech stack
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-bold">
+            Skills & <span className="gradient-gold-text">Expertise</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {skillCategories.map((category, ci) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: ci * 0.15 }}
+              className="glass rounded-2xl p-8 hover:glow-amber transition-shadow duration-500"
+            >
+              <h3 className="text-xl font-bold mb-6 gradient-gold-text">
+                {category.title}
+              </h3>
+              <div className="space-y-5">
+                {category.skills.map((skill, si) => (
+                  <div key={skill.name}>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-white">{skill.name}</span>
+                      <span className="text-[hsl(220,10%,55%)] font-mono text-xs">
+                        {skill.level}%
+                      </span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-gray-800 overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 1,
+                          delay: ci * 0.15 + si * 0.1,
+                          ease: "easeOut",
+                        }}
+                        className="h-full rounded-full gradient-gold"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// 6. ContactSection Component
+// ==========================================
+const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Thanks for reaching out! I'll get back to you soon.");
+    setFormData({ name: "", email: "", message: "" });
+  };
+
+  return (
+    <section id="contact" className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <p className="text-[#f5a623] font-mono text-sm mb-2">
+            // Get in touch
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-bold">
+            Let's build something <span className="gradient-gold-text">amazing</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-8"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 text-[#f5a623]" />
+              </div>
+              <div>
+                <p className="font-medium">Email</p>
+                <p className="text-[hsl(220,10%,55%)] text-sm">alex@devstudio.com</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0">
+                <MapPin className="w-5 h-5 text-[#f5a623]" />
+              </div>
+              <div>
+                <p className="font-medium">Location</p>
+                <p className="text-[hsl(220,10%,55%)] text-sm">San Francisco, CA — Available Worldwide</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              {[Github, Linkedin, Twitter].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="w-10 h-10 rounded-xl glass flex items-center justify-center text-[hsl(220,10%,55%)] hover:text-[#f5a623] hover:glow-amber transition-all duration-300"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
+
+            <div className="code-block rounded-xl p-4 font-mono text-sm mt-8">
+              <p className="text-[hsl(220,10%,55%)]">
+                <span className="text-[#f5a623]">$</span> echo "Let's collaborate!"
+              </p>
+              <p className="text-white mt-1">
+                → I'm always open to exciting projects and new ideas.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="glass rounded-2xl p-8 space-y-6"
+          >
+            <div>
+              <label className="text-sm font-medium mb-2 block">Name</label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#f5a623]/50 transition-colors"
+                placeholder="Your name"
+                required
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#f5a623]/50 transition-colors"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">Message</label>
+              <textarea
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                rows={4}
+                className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#f5a623]/50 transition-colors resize-none"
+                placeholder="Tell me about your project..."
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 gradient-gold text-[#0f172a] rounded-xl font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow-amber"
+            >
+              <Send size={16} />
+              Send Message
+            </button>
+          </motion.form>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// 7. Footer Component
+// ==========================================
+const Footer = () => {
+  return (
+    <footer className="py-8 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p className="text-sm text-[hsl(220,10%,55%)] font-mono">
+          <span className="text-[#f5a623]">{"<"}</span>dev
+          <span className="text-[#f5a623]">{" />"}</span> © 2026
+        </p>
+        <p className="text-sm text-[hsl(220,10%,55%)]">
+          Designed & built with passion
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </footer>
+  );
+};
 
-export default App
+// ==========================================
+// 8. LampIntro Component
+// ==========================================
+const LampIntro = ({ onReveal }) => {
+  const [phase, setPhase] = useState("idle");
+  const [hovering, setHovering] = useState(false);
+
+  const isLit = phase === "flicker" || phase === "on" || phase === "flood";
+  const isFullyLit = phase === "on" || phase === "flood";
+
+  const handlePull = () => {
+    if (phase !== "idle") return;
+    setPhase("pulling");
+    setTimeout(() => setPhase("flicker"), 300);
+    setTimeout(() => setPhase("on"), 900);
+    setTimeout(() => setPhase("flood"), 1600);
+    setTimeout(() => onReveal(), 2600);
+  };
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center select-none overflow-hidden"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          backgroundColor: isFullyLit ? "hsl(35, 15%, 8%)" : "hsl(220, 20%, 4%)",
+        }}
+        transition={{ duration: 1 }}
+      />
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        animate={{
+          opacity: phase === "flood" ? 1 : 0,
+          background: "radial-gradient(ellipse at 50% 30%, hsl(42, 60%, 70%, 0.25) 0%, hsl(42, 50%, 55%, 0.08) 40%, transparent 70%)",
+        }}
+        transition={{ duration: 1 }}
+      />
+
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-3 rounded-b-md bg-[hsl(220,10%,18%)] z-10" />
+      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[2px] h-[28vh] bg-gradient-to-b from-[hsl(220,10%,25%)] to-[hsl(220,10%,20%)] z-10" />
+
+      <div className="relative flex flex-col items-center z-10" style={{ marginTop: "-8vh" }}>
+        <div className="w-6 h-4 rounded-t-sm bg-gradient-to-b from-[hsl(220,8%,30%)] to-[hsl(220,8%,22%)] border border-[hsl(220,8%,35%)]" />
+
+        <div className="relative -mt-[1px]">
+          <svg width="200" height="100" viewBox="0 0 200 100" className="drop-shadow-lg">
+            <polygon points="70,0 130,0 170,95 30,95" fill="hsl(220, 10%, 15%)" stroke="hsl(220, 10%, 22%)" strokeWidth="1" />
+            <motion.polygon
+              points="72,2 128,2 168,93 32,93"
+              animate={{
+                fill: isFullyLit ? "hsl(35, 50%, 22%)" : isLit ? "hsl(35, 30%, 15%)" : hovering ? "hsl(225, 10%, 13%)" : "hsl(220, 10%, 12%)",
+              }}
+              transition={{ duration: 0.3 }}
+            />
+            <line x1="30" y1="95" x2="170" y2="95" stroke="hsl(220, 10%, 28%)" strokeWidth="2" />
+            <line x1="70" y1="0" x2="130" y2="0" stroke="hsl(220, 10%, 28%)" strokeWidth="1.5" />
+          </svg>
+
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <div className="w-3 h-2 bg-gradient-to-b from-[hsl(220,8%,35%)] to-[hsl(220,8%,25%)] rounded-sm" />
+            <motion.div
+              className="w-6 h-8 rounded-b-full rounded-t-lg -mt-[1px]"
+              animate={
+                phase === "flicker"
+                  ? {
+                      backgroundColor: ["hsl(42, 70%, 45%)", "hsl(220, 5%, 18%)", "hsl(42, 80%, 55%)", "hsl(42, 40%, 30%)", "hsl(42, 90%, 65%)"],
+                      boxShadow: ["0 0 15px hsl(42, 70%, 50%, 0.5), 0 0 40px hsl(42, 60%, 45%, 0.2)", "none", "0 0 25px hsl(42, 80%, 55%, 0.7), 0 0 60px hsl(42, 70%, 50%, 0.3)", "0 0 5px hsl(42, 50%, 40%, 0.3)", "0 0 30px hsl(42, 90%, 60%, 0.9), 0 0 80px hsl(42, 80%, 55%, 0.5), 0 0 150px hsl(42, 70%, 50%, 0.2)"],
+                    }
+                  : {
+                      backgroundColor: isFullyLit ? "hsl(42, 90%, 68%)" : "hsl(220, 5%, 18%)",
+                      boxShadow: isFullyLit ? "0 0 30px hsl(42, 90%, 60%, 0.9), 0 0 80px hsl(42, 80%, 55%, 0.5), 0 0 150px hsl(42, 70%, 50%, 0.2)" : "none",
+                    }
+              }
+              transition={phase === "flicker" ? { duration: 0.6, times: [0, 0.15, 0.4, 0.6, 1] } : { duration: 0.4 }}
+              style={{ border: "1px solid hsl(220, 8%, 25%)" }}
+            />
+            <motion.div
+              className="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-4"
+              animate={{ opacity: isLit ? 1 : 0.08 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="absolute left-0 top-0 w-[1px] h-full bg-gradient-to-b from-orange-300/80 to-transparent rotate-[-8deg]" />
+              <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[1px] h-full bg-gradient-to-b from-orange-300/90 to-transparent" />
+              <div className="absolute right-0 top-0 w-[1px] h-full bg-gradient-to-b from-orange-300/80 to-transparent rotate-[8deg]" />
+            </motion.div>
+          </div>
+        </div>
+
+        <motion.div
+          className="absolute top-[100px] left-1/2 -translate-x-1/2 pointer-events-none"
+          animate={{ opacity: isFullyLit ? 1 : phase === "flicker" ? 0.4 : 0, scale: phase === "flood" ? 1.3 : 1 }}
+          transition={{ duration: phase === "flood" ? 1.2 : 0.5 }}
+        >
+          <div style={{ width: 0, height: 0, borderLeft: "180px solid transparent", borderRight: "180px solid transparent", borderTop: "500px solid hsl(42, 50%, 70%, 0.05)", filter: "blur(12px)" }} />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2" style={{ width: 0, height: 0, borderLeft: "90px solid transparent", borderRight: "90px solid transparent", borderTop: "400px solid hsl(42, 60%, 65%, 0.08)", filter: "blur(6px)" }} />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-[70px] left-1/2 -translate-x-1/2 w-40 h-40 rounded-full pointer-events-none"
+          animate={{ opacity: isFullyLit ? 0.7 : phase === "flicker" ? 0.3 : 0, background: isLit ? "radial-gradient(circle, hsl(42, 70%, 55%, 0.35), transparent 70%)" : "none" }}
+          transition={{ duration: 0.4 }}
+        />
+      </div>
+
+      <motion.div
+        className="flex flex-col items-center mt-2 cursor-pointer z-20"
+        onClick={(e) => { e.stopPropagation(); handlePull(); }}
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+        animate={{ y: phase === "pulling" ? 28 : hovering ? 6 : 0 }}
+        transition={phase === "pulling" ? { type: "spring", stiffness: 400, damping: 12, mass: 0.8 } : { type: "spring", stiffness: 250, damping: 18 }}
+        whileTap={{ y: 32 }}
+      >
+        <div className="flex flex-col items-center gap-[2px]">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="w-[3px] h-[6px] rounded-full border"
+              animate={{
+                backgroundColor: isFullyLit ? "hsl(42, 30%, 35%)" : "hsl(220, 8%, 30%)",
+                borderColor: isFullyLit ? "hsl(42, 20%, 42%)" : "hsl(220, 8%, 38%)",
+              }}
+              transition={{ duration: 0.5, delay: i * 0.02 }}
+              style={{ opacity: 1 - i * 0.04 }}
+            />
+          ))}
+        </div>
+        <motion.div
+          className="w-5 h-5 rounded-full mt-1 shadow-lg border"
+          animate={{
+            background: isFullyLit ? "linear-gradient(to bottom, hsl(42, 20%, 40%), hsl(42, 15%, 28%))" : "linear-gradient(to bottom, hsl(220, 8%, 35%), hsl(220, 8%, 22%))",
+            borderColor: isFullyLit ? "hsl(42, 15%, 45%)" : "hsl(220, 8%, 40%)",
+          }}
+          transition={{ duration: 0.5 }}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
+        animate={{ opacity: isFullyLit ? 1 : 0, scale: phase === "flood" ? 1.5 : 1 }}
+        transition={{ duration: phase === "flood" ? 1.2 : 0.6 }}
+      >
+        <div className="w-[600px] h-[100px] rounded-[50%]" style={{ background: "radial-gradient(ellipse, hsl(42, 50%, 60%, 0.08), transparent 70%)", filter: "blur(25px)" }} />
+      </motion.div>
+
+      <motion.div
+        className="absolute inset-0 pointer-events-none bg-[hsl(42,60%,85%)]"
+        animate={{ opacity: phase === "flood" ? [0, 0.15, 0] : 0 }}
+        transition={{ duration: 1, times: [0, 0.3, 1] }}
+      />
+
+      <motion.p
+        className="absolute bottom-16 font-mono text-[10px] tracking-[0.4em] uppercase"
+        style={{ color: "hsl(220, 10%, 30%)" }}
+        animate={{ opacity: phase !== "idle" ? 0 : hovering ? 0.7 : [0.2, 0.45, 0.2] }}
+        transition={phase !== "idle" ? { duration: 0.2 } : hovering ? { duration: 0.2 } : { duration: 4, repeat: Infinity }}
+      >
+        {hovering ? "↓ Pull the cord" : "Pull to illuminate"}
+      </motion.p>
+    </motion.div>
+  );
+};
+
+// ==========================================
+// 9. Main Application Component
+// ==========================================
+export default function App() {
+  const [revealed, setRevealed] = useState(false);
+
+  return (
+    <div className="min-h-screen">
+      <style>{globalStyles}</style>
+      
+      <AnimatePresence>
+        {!revealed && <LampIntro onReveal={() => setRevealed(true)} />}
+      </AnimatePresence>
+
+      {revealed && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <Navbar />
+          <HeroSection />
+          <AboutSection />
+          <ProjectsSection />
+          <SkillsSection />
+          <ContactSection />
+          <Footer />
+        </motion.div>
+      )}
+    </div>
+  );
+}
