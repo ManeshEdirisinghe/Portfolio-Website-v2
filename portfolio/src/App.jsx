@@ -930,4 +930,4 @@ export default function App() {
       )}
     </div>
   );
-}The styling here isn’t working correctly. Please fix it.
+}
