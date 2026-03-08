@@ -586,7 +586,7 @@ const ContactSection = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     alert("Thanks for reaching out! I'll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
