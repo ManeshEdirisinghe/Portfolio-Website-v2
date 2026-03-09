@@ -736,8 +736,8 @@ const Footer = () => {
 // ==========================================
 // 8. LampIntro Component
 // ==========================================
-const LampIntro = ({ onReveal }: { onReveal: () => void }) => {
-  const [phase, setPhase] = useState<"idle" | "pulling" | "flicker" | "on" | "flood">("idle");
+const LampIntro = ({ onReveal }) => {
+  const [phase, setPhase] = useState("idle");
   const [hovering, setHovering] = useState(false);
 
   const isLit = phase === "flicker" || phase === "on" || phase === "flood";
@@ -930,4 +930,4 @@ export default function App() {
       )}
     </div>
   );
-}
+}The styling here isn’t working correctly. Please fix it.
