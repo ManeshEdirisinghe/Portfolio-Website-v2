@@ -266,8 +266,8 @@ const HeroSection = () => {
             <div className="relative">
               <div className="w-48 h-48 rounded-full overflow-hidden border-2 border-[#f5a623]/30 glow-amber bg-gray-800">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
-                  alt="Alex Rivera - Software Engineer"
+                  src="profilepic.png"
+                  alt="Manesh Edirisinghe - Software Engineer"
                   className="w-full h-full object-cover"
                 />
               </div>
