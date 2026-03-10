@@ -292,6 +292,24 @@ const stats = [
   { icon: Coffee, label: "Cups of Coffee", value: "∞" },
 ];
 
+const aboutCards = [
+  {
+    title: "Who I Am",
+    description:
+      "I'm Manesh Edirisinghe, an undergraduate in Bachelor of Information Technology at the University of Colombo School of Computing (UCSC) and hold a Diploma in Information Technology. I'm a passionate Software Engineer and UI/UX Designer, dedicated to creating innovative, user-centered digital experiences and real-world software solutions.",
+  },
+  {
+    title: "What I Do",
+    description:
+      "I specialize in Java programming and GUI development using Java Swing, creating intuitive and efficient desktop applications. My portfolio includes projects such as iHungry Burgershop and a School Website, reflecting my ability to combine functionality with clean design. I'm deeply passionate about problem-solving, UI/UX design, and continuously exploring modern frameworks and tools to craft seamless digital experiences.",
+  },
+  {
+    title: "My Goals",
+    description:
+      "My goal is to become a skilled Full-Stack Software Engineer and UI/UX Designer, capable of crafting impactful systems from front-end to back-end. I'm passionate about creating user-centered designs, seamless interfaces, and efficient backend solutions. I'm dedicated to continuous learning, innovative thinking, and turning ideas into meaningful digital experiences.",
+  },
+];
+
 const AboutSection = () => {
   return (
     <section id="about" className="py-32 relative">
@@ -310,7 +328,7 @@ const AboutSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -319,17 +337,16 @@ const AboutSection = () => {
             className="space-y-6"
           >
             <p className="text-[hsl(220,10%,55%)] text-lg leading-relaxed">
-              I'm a software engineer and UI/UX designer who believes that great
-              software is invisible — it just works beautifully. With a
-              background spanning frontend architecture, design systems, and
-              user research, I bridge the gap between what looks good and what
-              works well.
+              I'm Manesh Edirisinghe — an undergraduate pursuing a Bachelor of
+              Information Technology at the University of Colombo School of
+              Computing (UCSC). I hold a Diploma in Information Technology and
+              I'm passionate about building innovative, user-centered digital
+              experiences and real-world software solutions.
             </p>
             <p className="text-[hsl(220,10%,55%)] leading-relaxed">
-              When I'm not pushing pixels or debugging code, you'll find me
-              exploring new design trends, contributing to open source, or
-              sketching interfaces in my notebook. I believe in the power of
-              thoughtful design to transform complex problems into elegant
+              I specialize in Java programming, GUI development with Java Swing,
+              and modern web technologies. I believe in the power of thoughtful
+              design to transform complex problems into elegant, seamless
               solutions.
             </p>
 
@@ -368,6 +385,27 @@ const AboutSection = () => {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+
+        {/* Who I Am / What I Do / My Goals Cards */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {aboutCards.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="glass rounded-2xl p-8 hover:glow-amber transition-shadow duration-500 group"
+            >
+              <h3 className="text-lg font-bold gradient-gold-text mb-4 group-hover:scale-105 transition-transform origin-left">
+                {card.title}
+              </h3>
+              <p className="text-[hsl(220,10%,55%)] text-sm leading-relaxed">
+                {card.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
