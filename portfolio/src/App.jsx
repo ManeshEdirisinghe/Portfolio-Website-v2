@@ -201,7 +201,7 @@ const HeroSection = () => {
                 <span className="text-[#f5a623]">const</span> <span className="text-blue-400">developer</span> <span className="text-[hsl(220,10%,55%)]">=</span> {"{"}
               </p>
               <p className="pl-4">
-                <span className="text-green-400">name</span>: <span className="text-[#f5a623]">"Alex Rivera"</span>,
+                <span className="text-green-400">name</span>: <span className="text-[#f5a623]">"Manesh Edirisinghe"</span>,
               </p>
               <p className="pl-4">
                 <span className="text-green-400">role</span>: <span className="text-[#f5a623]">"Full-Stack Engineer"</span>,
