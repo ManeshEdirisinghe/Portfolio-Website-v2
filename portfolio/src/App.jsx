@@ -417,22 +417,46 @@ const AboutSection = () => {
 // ==========================================
 const projects = [
   {
-    title: "FinFlow Dashboard",
-    description: "A comprehensive fintech dashboard with real-time analytics, dark-mode glassmorphic UI, and intelligent data visualization.",
-    tags: ["React", "TypeScript", "D3.js", "Tailwind"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    title: "Restaurant E-Menu Application",
+    description: "Developed a digital menu solution for restaurants to enhance the ordering experience. The system allows users to browse menu items dynamically, view categories, and manage selections through an interactive UI, focusing on efficiency and modern design.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop",
+    github: "https://github.com/ManeshEdirisinghe/Restaurant-E-Menu-Application",
   },
   {
-    title: "Lumina Social",
-    description: "Mobile-first social media platform featuring AI-driven content curation, seamless interactions, and a signature amber dark theme.",
-    tags: ["React Native", "Node.js", "PostgreSQL", "Figma"],
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
+    title: "Kanban Hub — Task Management Board",
+    description: "A web-based task management application built using the Kanban methodology. It enables users to create, organize, and track tasks across workflow stages, focusing on productivity, clarity, and a responsive user experience with clean, modular frontend design.",
+    tags: ["HTML", "CSS", "JavaScript", "Kanban"],
+    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=800&auto=format&fit=crop",
+    github: "https://github.com/ManeshEdirisinghe/Kanban-Board",
   },
   {
-    title: "Nexus Portfolio",
-    description: "An immersive 3D portfolio experience with floating elements, particle systems, and scroll-driven animations.",
-    tags: ["Three.js", "GSAP", "WebGL", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
+    title: "Recipe Finder — Smart Food Discovery",
+    description: "A web-based application that helps users discover recipes based on ingredients, categories, or preferences. It provides a clean, responsive interface for browsing recipe details, making meal planning simple and enjoyable.",
+    tags: ["HTML", "CSS", "JavaScript", "API"],
+    image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?q=80&w=800&auto=format&fit=crop",
+    github: "https://github.com/ManeshEdirisinghe/Recipe-Finder-App-V2",
+  },
+  {
+    title: "ShopManage — Single Page Inventory System",
+    description: "A single page web application designed to manage products efficiently. It allows users to view, add, update, and delete items from an inventory through a smooth and responsive interface, focusing on simplicity and real-time interaction.",
+    tags: ["HTML", "CSS", "JavaScript", "CRUD"],
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
+    github: "https://github.com/ManeshEdirisinghe/ShopManage-Practice-Task",
+  },
+  {
+    title: "iHungry Burgershop with MVC",
+    description: "A Java-based burger ordering system built with the MVC architecture. It features an intuitive Java Swing GUI and demonstrates strong object-oriented and modular design principles.",
+    tags: ["Java", "Java Swing", "MVC", "OOP"],
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",
+    github: "https://github.com/ManeshEdirisinghe/iHungry-Burger-Shop-Project-with-MVC-",
+  },
+  {
+    title: "School Website",
+    description: "A responsive HTML and CSS project designed to present school information clearly and attractively. It includes sections for about, academics, admissions, and contact, showcasing skills in web design, layout structuring, and responsive UI development.",
+    tags: ["HTML", "CSS", "Responsive Design"],
+    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop",
+    github: "https://github.com/ManeshEdirisinghe/School-Website-Demo",
   },
 ];
 
@@ -500,12 +524,22 @@ const ProjectsSection = () => {
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <button className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors"
+                  >
                     <ExternalLink size={16} /> Live Demo
-                  </button>
-                  <button className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors">
+                  </a>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors"
+                  >
                     <Github size={16} /> Source
-                  </button>
+                  </a>
                 </div>
               </div>
             </motion.div>
