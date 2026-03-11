@@ -911,38 +911,61 @@ const LampIntro = ({ onReveal }) => {
         />
       </div>
 
-      <motion.div
-        className="flex flex-col items-center mt-2 cursor-pointer z-20"
-        onClick={(e) => { e.stopPropagation(); handlePull(); }}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-        animate={{ y: phase === "pulling" ? 28 : hovering ? 6 : 0 }}
-        transition={phase === "pulling" ? { type: "spring", stiffness: 400, damping: 12, mass: 0.8 } : { type: "spring", stiffness: 250, damping: 18 }}
-        whileTap={{ y: 32 }}
-      >
-        <div className="flex flex-col items-center gap-[2px]">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="w-[3px] h-[6px] rounded-full border"
-              animate={{
-                backgroundColor: isFullyLit ? "hsl(42, 30%, 35%)" : "hsl(220, 8%, 30%)",
-                borderColor: isFullyLit ? "hsl(42, 20%, 42%)" : "hsl(220, 8%, 38%)",
-              }}
-              transition={{ duration: 0.5, delay: i * 0.02 }}
-              style={{ opacity: 1 - i * 0.04 }}
-            />
-          ))}
-        </div>
-        <motion.div
-          className="w-5 h-5 rounded-full mt-1 shadow-lg border"
-          animate={{
-            background: isFullyLit ? "linear-gradient(to bottom, hsl(42, 20%, 40%), hsl(42, 15%, 28%))" : "linear-gradient(to bottom, hsl(220, 8%, 35%), hsl(220, 8%, 22%))",
-            borderColor: isFullyLit ? "hsl(42, 15%, 45%)" : "hsl(220, 8%, 40%)",
+      <div className="relative flex flex-col items-center mt-2 z-20 group">
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center pointer-events-none select-none text-5xl md:text-7xl font-bold font-sans tracking-[0.15em] transition-all duration-700"
+          style={{
+            color: isFullyLit ? "hsl(42, 80%, 90%)" : "hsl(220, 10%, 25%)",
+            textShadow: isFullyLit ? "0 0 30px hsl(42, 80%, 55%, 0.6)" : "none",
           }}
-          transition={{ duration: 0.5 }}
-        />
-      </motion.div>
+        >
+          <div className="flex gap-[0.2em] pr-[1.2em]">
+            <span>M</span>
+            <span>A</span>
+          </div>
+          <div className="flex gap-[0.2em] pl-[1.2em]">
+            <span>E</span>
+            <span>S</span>
+            <span>H</span>
+          </div>
+        </div>
+
+        <motion.div
+          className="flex flex-col items-center cursor-pointer relative z-10"
+          onClick={(e) => { e.stopPropagation(); handlePull(); }}
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+          animate={{ y: phase === "pulling" ? 30 : hovering ? 8 : 0 }}
+          transition={phase === "pulling" ? { type: "spring", stiffness: 400, damping: 12, mass: 0.8 } : { type: "spring", stiffness: 250, damping: 18 }}
+          whileTap={{ y: 35 }}
+        >
+          <div className="flex flex-col items-center gap-[3px]">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="w-[3px] h-[8px] rounded-full border"
+                animate={{
+                  backgroundColor: isFullyLit ? "hsl(42, 30%, 35%)" : "hsl(220, 8%, 30%)",
+                  borderColor: isFullyLit ? "hsl(42, 20%, 42%)" : "hsl(220, 8%, 38%)",
+                }}
+                transition={{ duration: 0.5, delay: i * 0.02 }}
+                style={{ opacity: 1 - i * 0.02 }}
+              />
+            ))}
+          </div>
+          <motion.div
+            className="mt-1 text-5xl md:text-7xl font-bold font-sans tracking-normal"
+            animate={{
+              color: isFullyLit ? "hsl(42, 80%, 90%)" : hovering ? "hsl(42, 60%, 55%)" : "hsl(220, 10%, 25%)",
+              textShadow: isFullyLit ? "0 0 30px hsl(42, 80%, 55%, 0.6)" : hovering ? "0 0 15px hsl(42, 50%, 40%, 0.4)" : "none",
+              scale: hovering ? 1.05 : 1,
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            N
+          </motion.div>
+        </motion.div>
+      </div>
 
       <motion.div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
@@ -959,12 +982,12 @@ const LampIntro = ({ onReveal }) => {
       />
 
       <motion.p
-        className="absolute bottom-16 font-mono text-[10px] tracking-[0.4em] uppercase"
-        style={{ color: "hsl(220, 10%, 30%)" }}
-        animate={{ opacity: phase !== "idle" ? 0 : hovering ? 0.7 : [0.2, 0.45, 0.2] }}
+        className="absolute bottom-16 font-mono text-[10px] sm:text-xs tracking-[0.4em] uppercase text-center w-full px-4"
+        style={{ color: "hsl(220, 10%, 40%)" }}
+        animate={{ opacity: phase !== "idle" ? 0 : hovering ? 0.9 : [0.2, 0.45, 0.2] }}
         transition={phase !== "idle" ? { duration: 0.2 } : hovering ? { duration: 0.2 } : { duration: 4, repeat: Infinity }}
       >
-        {hovering ? "↓ Pull the cord" : "Pull to illuminate"}
+        {hovering ? "↓ Click the 'N' to enter portfolio" : "Pull the 'N' to illuminate"}
       </motion.p>
     </motion.div>
   );
