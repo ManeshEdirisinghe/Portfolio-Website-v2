@@ -913,21 +913,15 @@ const LampIntro = ({ onReveal }) => {
 
       <div className="relative flex flex-col items-center mt-2 z-20 group">
         <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center pointer-events-none select-none text-5xl md:text-7xl font-bold font-sans tracking-[0.15em] transition-all duration-700"
+          className="absolute bottom-[-0.02em] left-1/2 -translate-x-1/2 flex items-center pointer-events-none select-none text-6xl md:text-8xl font-bold font-sans tracking-tight transition-all duration-700"
           style={{
             color: isFullyLit ? "hsl(42, 80%, 90%)" : "hsl(220, 10%, 25%)",
             textShadow: isFullyLit ? "0 0 30px hsl(42, 80%, 55%, 0.6)" : "none",
           }}
         >
-          <div className="flex gap-[0.2em] pr-[1.2em]">
-            <span>M</span>
-            <span>A</span>
-          </div>
-          <div className="flex gap-[0.2em] pl-[1.2em]">
-            <span>E</span>
-            <span>S</span>
-            <span>H</span>
-          </div>
+          <div className="pr-[0.37em]">MA</div>
+          {/* <div className="pr-[0.37em]"> </div> */}
+          <div className="pl-[0.37em]">ESH.</div>
         </div>
 
         <motion.div
@@ -954,7 +948,7 @@ const LampIntro = ({ onReveal }) => {
             ))}
           </div>
           <motion.div
-            className="mt-1 text-5xl md:text-7xl font-bold font-sans tracking-normal"
+            className="mt-1 text-6xl md:text-8xl font-bold font-sans tracking-tight leading-none"
             animate={{
               color: isFullyLit ? "hsl(42, 80%, 90%)" : hovering ? "hsl(42, 60%, 55%)" : "hsl(220, 10%, 25%)",
               textShadow: isFullyLit ? "0 0 30px hsl(42, 80%, 55%, 0.6)" : hovering ? "0 0 15px hsl(42, 50%, 40%, 0.4)" : "none",
