@@ -428,7 +428,7 @@ const projects = [
     title: "MediCare Sync - Clinical Management System",
     description: "Collaborating in a 3-member team to develop a full-stack system digitizing healthcare workflows and patient profiles. Implemented JWT-based authentication and a pharmacy coordination module for secure, real-time data access.",
     tags: ["React.js", "Spring Boot", "MySQL", "JWT", "REST API"],
-    image: "MediCareSync.png",
+    image: "medicare.png",
     backend: "https://github.com/ManeshEdirisinghe/Wellness-Point-Clinical-System",
     frontend: "https://github.com/ManeshEdirisinghe/wellness-point-front-end",
   },
