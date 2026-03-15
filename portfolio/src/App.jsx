@@ -919,9 +919,12 @@ const LampIntro = ({ onReveal }) => {
             textShadow: isFullyLit ? "0 0 30px hsl(42, 80%, 55%, 0.6)" : "none",
           }}
         >
-          <div className="pr-[0.37em]"> MA</div>
-          <div className="pr-[0.37em]"> </div>
-          <div className="pl-[0.37em]">ESH.</div>
+          <div className="pr-[0.28em]">M</div>
+          <div className="pr-[0em]">A</div>
+          <div className="pr-[0.33em]"></div>
+          <div className="pl-[0.98em] ">E</div>
+          <div className="pl-[0.28em]">S</div>
+          <div className="pl-[0.28em]">H.</div>
         </div>
 
         <motion.div
@@ -956,7 +959,7 @@ const LampIntro = ({ onReveal }) => {
             }}
             transition={{ duration: 0.3 }}
           >
-            N
+            <div className="pr-[0.57em] pl-[0.0em]"> N </div>
           </motion.div>
         </motion.div>
       </div>
