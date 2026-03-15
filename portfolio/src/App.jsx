@@ -919,8 +919,8 @@ const LampIntro = ({ onReveal }) => {
             textShadow: isFullyLit ? "0 0 30px hsl(42, 80%, 55%, 0.6)" : "none",
           }}
         >
-          <div className="pr-[0.37em]">MA</div>
-          {/* <div className="pr-[0.37em]"> </div> */}
+          <div className="pr-[0.37em]"> MA</div>
+          <div className="pr-[0.37em]"> </div>
           <div className="pl-[0.37em]">ESH.</div>
         </div>
 
