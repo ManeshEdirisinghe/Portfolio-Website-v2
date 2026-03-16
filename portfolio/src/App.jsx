@@ -450,7 +450,7 @@ const projects = [
   },
   {
     title: "BuildFlow — Enterprise Construction ERP System",
-    description: "Built a Java-based management system using MVC architecture and custom data structures for customer order persistence. Implemented Object-Oriented Programming (OOP) principles and File I/O to ensure efficient modular design.",
+    description: "Serving as a Technical Business Analyst to bridge business requirements and technical implementation for a large-scale construction ERP. Translating complex needs into detailed user stories and technical scopes while collaborating with Spring Boot and Angular teams.",
     tags: ["Java", "MVC", "OOP", "Data Structures"],
     image: "BurgerShop.png",
     backend: "https://github.com/ManeshEdirisinghe/iHungry-Burger-Shop-Project-with-MVC-",
