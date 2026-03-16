@@ -449,7 +449,7 @@ const projects = [
     frontend: "https://github.com/ManeshEdirisinghe/Catering-Management-System",
   },
   {
-    title: "iHungry Burgershop with MVC",
+    title: "BuildFlow — Enterprise Construction ERP System",
     description: "Built a Java-based management system using MVC architecture and custom data structures for customer order persistence. Implemented Object-Oriented Programming (OOP) principles and File I/O to ensure efficient modular design.",
     tags: ["Java", "MVC", "OOP", "Data Structures"],
     image: "BurgerShop.png",
