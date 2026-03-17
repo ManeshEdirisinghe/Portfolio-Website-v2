@@ -451,7 +451,7 @@ const projects = [
   {
     title: "BuildFlow — Enterprise Construction ERP System",
     description: "Serving as a Technical Business Analyst to bridge business requirements and technical implementation for a large-scale construction ERP. Translating complex needs into detailed user stories and technical scopes while collaborating with Spring Boot and Angular teams.",
-    tags: ["Java", "MVC", "OOP", "Data Structures"],
+    tags: ["Spring Boot", "Angular", "TypeScript", "Agile/Scrum"],
     image: "BurgerShop.png",
     backend: "https://github.com/ManeshEdirisinghe/iHungry-Burger-Shop-Project-with-MVC-",
     frontend: "https://github.com/ManeshEdirisinghe/iHungry-Burger-Shop-Project-with-MVC-",
