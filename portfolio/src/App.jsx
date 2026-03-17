@@ -559,7 +559,7 @@ const skillCategories = [
       { name: "React / Next.js", level: 95 },
       { name: "TypeScript", level: 90 },
       { name: "Tailwind CSS", level: 92 },
-      { name: "Framer Motion", level: 85 },
+      { name: "Framer Motion", level: 85 }, 
     ],
   },
   {
