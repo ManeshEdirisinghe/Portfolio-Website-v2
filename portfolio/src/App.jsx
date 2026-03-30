@@ -2,76 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter } from "lucide-react";
 
-// CSS Styles (Combined)
-const globalStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-  :root {
-    --background: 220 20% 7%;
-    --foreground: 40 20% 90%;
-    --primary: 42 80% 55%;
-    --primary-foreground: 220 20% 7%;
-    --secondary: 220 15% 16%;
-    --muted: 220 12% 18%;
-    --muted-foreground: 220 10% 55%;
-    --border: 220 15% 20%;
-    --glass: 220 15% 15%;
-    --glass-border: 220 10% 25%;
-    --glow: 42 80% 55%;
-    --syntax-green: 142 60% 55%;
-    --syntax-blue: 217 80% 65%;
-    --syntax-dot-green: 142 60% 50%;
-  }
-
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: 'Space Grotesk', sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  code, .font-mono {
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .glass {
-    background: hsl(var(--glass) / 0.4);
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--glass-border) / 0.3);
-  }
-
-  .glass-strong {
-    background: hsl(var(--glass) / 0.6);
-    backdrop-filter: blur(30px);
-    border: 1px solid hsl(var(--glass-border) / 0.4);
-  }
-
-  .glow-amber {
-    box-shadow: 0 0 40px hsl(var(--glow) / 0.15), 0 0 80px hsl(var(--glow) / 0.05);
-  }
-
-  .gradient-gold {
-    background: linear-gradient(135deg, hsl(42, 80%, 55%), hsl(38, 70%, 45%));
-  }
-
-  .gradient-gold-text {
-    background: linear-gradient(135deg, hsl(42, 80%, 60%), hsl(38, 70%, 50%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .lamp-light {
-    background: radial-gradient(ellipse at center top, hsl(42, 60%, 70%, 0.12) 0%, transparent 60%);
-  }
-
-  .code-block {
-    background: hsl(220, 20%, 10%);
-    border: 1px solid hsl(220, 15%, 18%);
-  }
-`;
 
 // ==========================================
 // 1. Navbar Component
@@ -286,8 +217,8 @@ const HeroSection = () => {
 // 3. AboutSection Component
 // ==========================================
 const stats = [
-  { icon: Code2, label: "Years Experience", value: "5+" },
-  { icon: Palette, label: "Projects Delivered", value: "40+" },
+  { icon: Code2, label: "Years Experience", value: "3+" },
+  { icon: Palette, label: "Projects Delivered", value: "10+" },
   { icon: Zap, label: "Technologies", value: "15+" },
   { icon: Coffee, label: "Cups of Coffee", value: "∞" },
 ];
@@ -999,8 +930,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <style>{globalStyles}</style>
-      
       <AnimatePresence>
         {!revealed && <LampIntro onReveal={() => setRevealed(true)} />}
       </AnimatePresence>
