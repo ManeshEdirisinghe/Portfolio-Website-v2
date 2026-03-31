@@ -762,6 +762,7 @@ const LampIntro = ({ onReveal }) => {
     >
       <motion.div
         className="absolute inset-0"
+        initial={{ backgroundColor: "hsl(220, 20%, 4%)" }}
         animate={{
           backgroundColor: isFullyLit ? "hsl(35, 15%, 8%)" : "hsl(220, 20%, 4%)",
         }}
@@ -769,6 +770,7 @@ const LampIntro = ({ onReveal }) => {
       />
       <motion.div
         className="absolute inset-0 pointer-events-none"
+        initial={{ opacity: 0 }}
         animate={{
           opacity: phase === "flood" ? 1 : 0,
           background: "radial-gradient(ellipse at 50% 30%, hsl(42, 60%, 70%, 0.25) 0%, hsl(42, 50%, 55%, 0.08) 40%, transparent 70%)",
@@ -828,6 +830,7 @@ const LampIntro = ({ onReveal }) => {
 
         <motion.div
           className="absolute top-[100px] left-1/2 -translate-x-1/2 pointer-events-none"
+          initial={{ opacity: 0, scale: 1 }}
           animate={{ opacity: isFullyLit ? 1 : phase === "flicker" ? 0.4 : 0, scale: phase === "flood" ? 1.3 : 1 }}
           transition={{ duration: phase === "flood" ? 1.2 : 0.5 }}
         >
@@ -837,6 +840,7 @@ const LampIntro = ({ onReveal }) => {
 
         <motion.div
           className="absolute top-[70px] left-1/2 -translate-x-1/2 w-40 h-40 rounded-full pointer-events-none"
+          initial={{ opacity: 0 }}
           animate={{ opacity: isFullyLit ? 0.7 : phase === "flicker" ? 0.3 : 0, background: isLit ? "radial-gradient(circle, hsl(42, 70%, 55%, 0.35), transparent 70%)" : "none" }}
           transition={{ duration: 0.4 }}
         />
@@ -898,6 +902,7 @@ const LampIntro = ({ onReveal }) => {
 
       <motion.div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
+        initial={{ opacity: 0, scale: 1 }}
         animate={{ opacity: isFullyLit ? 1 : 0, scale: phase === "flood" ? 1.5 : 1 }}
         transition={{ duration: phase === "flood" ? 1.2 : 0.6 }}
       >
@@ -906,6 +911,7 @@ const LampIntro = ({ onReveal }) => {
 
       <motion.div
         className="absolute inset-0 pointer-events-none bg-[hsl(42,60%,85%)]"
+        initial={{ opacity: 0 }}
         animate={{ opacity: phase === "flood" ? [0, 0.15, 0] : 0 }}
         transition={{ duration: 1, times: [0, 0.3, 1] }}
       />
