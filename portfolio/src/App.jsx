@@ -545,29 +545,22 @@ const SkillsSection = () => {
               <h3 className="text-xl font-bold mb-6 gradient-gold-text">
                 {category.title}
               </h3>
-              <div className="space-y-5">
+              <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill, si) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-white">{skill.name}</span>
-                      <span className="text-[hsl(220,10%,55%)] font-mono text-xs">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-gray-800 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 1,
-                          delay: ci * 0.15 + si * 0.1,
-                          ease: "easeOut",
-                        }}
-                        className="h-full rounded-full gradient-gold"
-                      />
-                    </div>
-                  </div>
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.4,
+                      delay: ci * 0.15 + si * 0.1,
+                    }}
+                    className="px-4 py-2 bg-[hsl(220,15%,12%)] border border-gray-800 rounded-lg text-sm text-[hsl(40,20%,90%)] hover:border-[#f5a623]/50 hover:text-[#f5a623] transition-colors cursor-default flex items-center gap-2 group"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#f5a623]/50 group-hover:bg-[#f5a623] group-hover:shadow-[0_0_8px_rgba(245,166,35,0.8)] transition-all duration-300" />
+                    {skill.name}
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
