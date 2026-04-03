@@ -580,11 +580,43 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Thanks for reaching out! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    // TODO: Replace with your actual Web3Forms access key
+    const accessKey = "YOUR_WEB3FORMS_ACCESS_KEY_HERE"; 
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          ...formData,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   return (
@@ -697,11 +729,32 @@ const ContactSection = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-3 gradient-gold text-[#0f172a] rounded-xl font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow-amber"
+              disabled={isSubmitting}
+              className="w-full py-3 gradient-gold text-[#0f172a] rounded-xl font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity glow-amber disabled:opacity-75 disabled:cursor-not-allowed"
             >
-              <Send size={16} />
-              Send Message
+              {isSubmitting ? (
+                <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-[#0f172a]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              ) : (
+                <>
+                  <Send size={16} />
+                  Send Message
+                </>
+              )}
             </button>
+            
+            {submitStatus === "success" && (
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-green-400 text-sm text-center mt-2">
+                Message sent successfully! I'll get back to you soon.
+              </motion.p>
+            )}
+            {submitStatus === "error" && (
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-400 text-sm text-center mt-2">
+                Failed to send message. Please check your access key.
+              </motion.p>
+            )}
           </motion.form>
         </div>
       </div>
