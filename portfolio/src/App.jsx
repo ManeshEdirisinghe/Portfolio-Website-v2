@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter } from "lucide-react";
+import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download } from "lucide-react";
 
 
 
@@ -172,10 +172,19 @@ const HeroSection = () => {
               pixel tells a story, every function has a purpose.
             </p>
 
-            <div className="flex gap-4 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <a
+                href="/resume.pdf"
+                download="Manesh_Edirisinghe_Resume.pdf"
+                className="flex items-center gap-2 px-6 py-3 gradient-gold text-[#0f172a] rounded-xl font-bold hover:scale-105 transition-all glow-amber relative overflow-hidden group"
+              >
+                <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-in-out"></div>
+                <Download size={20} className="animate-bounce" />
+                Download CV
+              </a>
               <a
                 href="#projects"
-                className="px-6 py-3 gradient-gold text-[#0f172a] rounded-xl font-medium hover:opacity-90 transition-opacity glow-amber"
+                className="px-6 py-3 glass rounded-xl font-medium text-white hover:border-[#f5a623]/50 transition-colors"
               >
                 View Projects
               </a>
