@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download } from "lucide-react";
+import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download, Briefcase, GraduationCap, Calendar } from "lucide-react";
 
 
 
@@ -10,6 +10,7 @@ import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPi
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
@@ -344,6 +345,86 @@ const AboutSection = () => {
               <p className="text-[hsl(220,10%,55%)] text-sm leading-relaxed">
                 {card.description}
               </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// TimelineSection Component
+// ==========================================
+const timelineData = [
+  {
+    type: "education",
+    year: "Present",
+    title: "Bachelor of Information Technology",
+    subtitle: "University of Colombo School of Computing (UCSC)",
+    description: "Undergraduate actively pursuing a specialized degree in IT, focusing on software engineering, UI/UX, and modern web technologies.",
+    icon: GraduationCap,
+  },
+  {
+    type: "work",
+    year: "Present",
+    title: "Technical Business Analyst",
+    subtitle: "BuildFlow ERP",
+    description: "Bridging business requirements and technical implementation for a large-scale construction ERP system. Translating complex needs into detailed user stories and collaborating with development teams.",
+    icon: Briefcase,
+  },
+  {
+    type: "education",
+    year: "Completed",
+    title: "Diploma in Information Technology",
+    subtitle: "IT Institute",
+    description: "Gained a strong foundation in programming, database management, and system design, which sparked my passion for software engineering.",
+    icon: GraduationCap,
+  },
+];
+
+const TimelineSection = () => {
+  return (
+    <section id="experience" className="py-32 relative">
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16 text-center"
+        >
+          <p className="text-[#f5a623] font-mono text-sm mb-2">// My Journey</p>
+          <h2 className="text-4xl lg:text-5xl font-bold">
+            Work & <span className="gradient-gold-text">Education</span>
+          </h2>
+        </motion.div>
+
+        <div className="relative border-l-2 border-gray-800 ml-3 md:ml-6 space-y-12">
+          {timelineData.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.2 }}
+              className="relative pl-8 md:pl-12"
+            >
+              <div className="absolute -left-[21px] top-1 bg-gray-900 border-2 border-[#f5a623] w-10 h-10 rounded-full flex items-center justify-center glow-amber z-10">
+                <item.icon className="w-5 h-5 text-[#f5a623]" />
+              </div>
+              <div className="glass rounded-2xl p-6 md:p-8 hover:glow-amber transition-shadow duration-500 group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#f5a623]/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#f5a623] transition-colors">{item.title}</h3>
+                  <span className="flex items-center gap-2 text-sm font-mono text-[#f5a623] bg-[#f5a623]/10 px-3 py-1 rounded-full w-fit">
+                    <Calendar className="w-4 h-4" />
+                    {item.year}
+                  </span>
+                </div>
+                <h4 className="text-lg text-gray-300 mb-3">{item.subtitle}</h4>
+                <p className="text-[hsl(220,10%,55%)] leading-relaxed">{item.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -1004,6 +1085,7 @@ export default function App() {
           <Navbar />
           <HeroSection />
           <AboutSection />
+          <TimelineSection />
           <ProjectsSection />
           <SkillsSection />
           <ContactSection />
