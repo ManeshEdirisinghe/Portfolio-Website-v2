@@ -176,8 +176,8 @@ const HeroSection = () => {
 
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <a
-                href="/resume.pdf"
-                download="Manesh_Edirisinghe_Resume.pdf"
+                href="/MADHURA%20MANESH%20EDIRISINGHE.pdf"
+                download="MADHURA MANESH EDIRISINGHE.pdf"
                 className="flex items-center gap-2 px-6 py-3 gradient-gold text-[#0f172a] rounded-xl font-bold hover:scale-105 transition-all glow-amber relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-in-out"></div>
@@ -703,6 +703,12 @@ const ProjectsSection = () => {
 // 5. CertificationsSection Component
 // ==========================================
 const certifications = [
+   {
+    title: "Diploma in Information Technology",
+    issuer: "University of Colombo",
+    date: "Aug 1, 2024",
+    image: "diploma_it.png",
+  },
   {
     title: "Project Leadership",
     issuer: "LinkedIn Learning",
@@ -714,13 +720,7 @@ const certifications = [
     issuer: "LinkedIn Learning",
     date: "Dec 10, 2025",
     image: "project_management.png",
-  },
-  {
-    title: "Diploma in Information Technology",
-    issuer: "University of Colombo",
-    date: "Aug 1, 2024",
-    image: "diploma_it.png",
-  },
+  }, 
   {
     title: "Introduction To Programming & C Programming Language",
     issuer: "eNen",
@@ -732,6 +732,12 @@ const certifications = [
     issuer: "University of Moratuwa",
     date: "Jun 27, 2022",
     image: "python_beginners.png",
+  },
+  {
+    title: "Certificate Course in Graphic Designing",
+    issuer: "University of Kelaniya",
+    date: "Sep 1, 2024",
+    image: "graphic_designing.png",
   }
 ];
 
