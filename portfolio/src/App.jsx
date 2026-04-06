@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download, Briefcase, GraduationCap, Calendar } from "lucide-react";
+import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download, Briefcase, GraduationCap, Calendar, Info } from "lucide-react";
 
 
 
@@ -440,6 +440,9 @@ const projects = [
   {
     title: "Restaurant E-Menu Application",
     description: "Engineered a dynamic digital menu platform with a glass-morphism UI/UX, featuring live search and category filtering. Integrated RESTful APIs via Axios for real-time data fetching and responsive rendering across all device types.",
+    fullDescription: "A comprehensive digital menu solution replacing traditional physical menus. This application aims to enhance the dining experience by allowing customers to browse items efficiently on their own devices. It features real-time data synchronization directly from a centralized content management panel.",
+    role: "Lead Frontend Developer",
+    challenges: "Handling real-time synchronization between the REST API and the React state without causing re-renders or performance lags on mobile devices.",
     tags: ["React.js", "Tailwind CSS", "Axios", "REST API"],
     image: "EMenu.png",
     backend: "https://github.com/ManeshEdirisinghe/Restaurant-E-Menu-Application",
@@ -448,6 +451,9 @@ const projects = [
   {
     title: "MediCare Sync - Clinical Management System",
     description: "Collaborating in a 3-member team to develop a full-stack system digitizing healthcare workflows and patient profiles. Implemented JWT-based authentication and a pharmacy coordination module for secure, real-time data access.",
+    fullDescription: "MediCare Sync acts as a centralized brain for clinical facilities, integrating patient, doctor, and pharmacy data. Designed with security at the forefront, it ensures HIPAA-compliant handling of sensitive information through modern authorization frameworks.",
+    role: "Full-Stack Developer",
+    challenges: "Building a complex role-based access control (RBAC) system in Spring Boot that tightly coupled with the React front-end to ensure different views for Doctors, Pharmacists, and Patients.",
     tags: ["React.js", "Spring Boot", "MySQL", "JWT", "REST API"],
     image: "medicare.png",
     backend: "https://github.com/ManeshEdirisinghe/Wellness-Point-Clinical-System",
@@ -456,6 +462,9 @@ const projects = [
   {
     title: "Disaster Management System",
     description: "Led a 3-member team to build a real-time emergency response app featuring GPS-based reporting and offline synchronization. Developed a live admin dashboard for incident monitoring while managing task distribution and version control via GitHub.",
+    fullDescription: "Built during a hackathon, this platform enables rapid response mapping to environmental crises. It crowdsources location-tagged incident reports, validates them against existing parameters, and pushes notifications directly to first responders.",
+    role: "Team Lead & Lead Developer",
+    challenges: "Implementing a resilient offline-first mode using Firebase that smoothly synced up local incident caching once network connectivity was restored in disaster zones.",
     tags: ["React.js", "Firebase", "GPS Integration", "GitHub"],
     image: "DisasterManagement.png",
     backend: "https://github.com/ManeshEdirisinghe/Hackathon-Web-App",
@@ -464,6 +473,9 @@ const projects = [
   {
     title: "Catering Management Dashboard",
     description: "Developed a premium responsive frontend dashboard with a luxury aesthetic to streamline event scheduling and order tracking. Engineered a centralized management hub focusing on dynamic interface logic and state management using React.",
+    fullDescription: "A sleek B2B dashboard tailored specifically for high-end catering services. It visualizes daily orders, revenue metrics, event scheduling, and resource allocation through stunning charting libraries and smooth UI animations.",
+    role: "Frontend Engineer / UI UX Designer",
+    challenges: "Balancing excessive visual details (glassmorphism, subtle glows) against raw performance, ensuring the dashboard consistently hits 60FPS even when flooded with dense calendar data.",
     tags: ["React.js", "Tailwind CSS", "JavaScript", "UI/UX"],
     image: "CateringDashboard.png",
     backend: "https://github.com/ManeshEdirisinghe/Catering-Management-System",
@@ -472,6 +484,9 @@ const projects = [
   {
     title: "BuildFlow — Enterprise Construction ERP System",
     description: "Serving as a Technical Business Analyst to bridge business requirements and technical implementation for a large-scale construction ERP. Translating complex needs into detailed user stories and technical scopes while collaborating with Spring Boot and Angular teams.",
+    fullDescription: "An expansive Enterprise Resource Planning (ERP) platform uniquely crafted for the construction workflow. It tracks materials, machinery, contractor hours, and budgetary constraints through modular architecture spread across various microservices.",
+    role: "Technical Business Analyst",
+    challenges: "Serving as the critical bridge between non-technical construction stakeholders and the hardcore development team, ensuring zero friction in translating domain-specific construction jargons into concise user stories.",
     tags: ["Spring Boot", "Angular", "TypeScript", "Agile/Scrum"],
     image: "BuildFlow.png",
     backend: "https://github.com/ManeshEdirisinghe/",
@@ -480,6 +495,8 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
     <section id="projects" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -551,20 +568,131 @@ const ProjectsSection = () => {
                   >
                     <ExternalLink size={16} /> Backend
                   </a>
-                  <a
-                    href={project.frontend}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors"
+                  {project.frontend && (
+                    <a
+                      href={project.frontend}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-[hsl(220,10%,55%)] hover:text-[#f5a623] transition-colors"
+                    >
+                      <ExternalLink size={16} /> Front end
+                    </a>
+                  )}
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="flex items-center gap-2 text-sm text-[#f5a623] hover:text-white transition-colors bg-[#f5a623]/10 hover:bg-[#f5a623]/20 px-3 py-1 rounded-full ml-auto"
                   >
-                    <ExternalLink size={16} /> Front end
-                  </a>
-       
+                    <Info size={16} /> Learn More
+                  </button>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Project Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm"
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="bg-[hsl(220,15%,12%)] border border-gray-800 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 p-2 bg-black/40 hover:bg-[#f5a623]/20 text-gray-400 hover:text-[#f5a623] rounded-full transition-colors z-10"
+                >
+                  <X size={20} />
+                </button>
+                
+                <div className="relative h-64 sm:h-80 w-full overflow-hidden rounded-t-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220,15%,12%)] to-transparent z-10"></div>
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-6 left-6 sm:left-10 z-20">
+                    <h3 className="text-3xl sm:text-4xl font-bold text-white mb-2">{selectedProject.title}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.tags.map((tag) => (
+                        <span key={tag} className="px-3 py-1 text-xs font-mono bg-black/50 text-[#f5a623] border border-[#f5a623]/30 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 sm:p-10 space-y-8">
+                  <div>
+                    <h4 className="text-xl font-bold text-[#f5a623] mb-3 flex items-center gap-2">
+                      <Info className="w-5 h-5" /> About the Project
+                    </h4>
+                    <p className="text-[hsl(220,10%,55%)] leading-relaxed text-sm sm:text-base">
+                      {selectedProject.fullDescription || selectedProject.description}
+                    </p>
+                  </div>
+
+                  {selectedProject.role && (
+                    <div>
+                      <h4 className="text-xl font-bold text-[#f5a623] mb-3 flex items-center gap-2">
+                        <Briefcase className="w-5 h-5" /> My Role
+                      </h4>
+                      <p className="text-[hsl(220,10%,55%)] leading-relaxed text-sm sm:text-base">
+                        {selectedProject.role}
+                      </p>
+                    </div>
+                  )}
+
+                  {selectedProject.challenges && (
+                    <div>
+                      <h4 className="text-xl font-bold text-[#f5a623] mb-3 flex items-center gap-2">
+                        <Zap className="w-5 h-5" /> Technical Challenges
+                      </h4>
+                      <div className="glass p-4 rounded-xl border border-red-500/10 bg-red-500/5">
+                        <p className="text-[hsl(220,10%,70%)] text-sm sm:text-base leading-relaxed">
+                          {selectedProject.challenges}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="pt-6 border-t border-gray-800 flex gap-4">
+                    <a
+                      href={selectedProject.backend}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 bg-[hsl(220,15%,16%)] hover:bg-[hsl(220,15%,20%)] text-white rounded-xl font-medium flex items-center gap-2 transition-colors border border-gray-700 hover:border-gray-600"
+                    >
+                      <Github size={18} /> Backend Repo
+                    </a>
+                    {selectedProject.frontend && (
+                      <a
+                        href={selectedProject.frontend}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-3 bg-[hsl(220,15%,16%)] hover:bg-[hsl(220,15%,20%)] text-white rounded-xl font-medium flex items-center gap-2 transition-colors border border-gray-700 hover:border-gray-600"
+                      >
+                        <Github size={18} /> Frontend Repo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
