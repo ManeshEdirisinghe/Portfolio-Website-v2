@@ -723,7 +723,7 @@ const certifications = [
   }, 
   {
     title: "Introduction To Programming & C Programming Language",
-    issuer: "eNen",
+    issuer: "e",
     date: "Sep 23, 2022",
     image: "c_programming.png",
   },
