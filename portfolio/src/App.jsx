@@ -723,7 +723,7 @@ const certifications = [
   }, 
   {
     title: "Introduction To Programming & C Programming Language",
-    issuer: "e",
+    issuer: "e-ketha",
     date: "Sep 23, 2022",
     image: "c_programming.png",
   },
