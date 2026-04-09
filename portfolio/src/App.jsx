@@ -1011,7 +1011,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-medium">Email</p>
-                <p className="text-[hsl(220,10%,55%)] text-sm">alex@devstudio.com</p>
+                <p className="text-[hsl(220,10%,55%)] text-sm"></p>
               </div>
             </div>
             <div className="flex items-start gap-4">
