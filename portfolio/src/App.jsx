@@ -1020,7 +1020,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-medium">Location</p>
-                <p className="text-[hsl(220,10%,55%)] text-sm">San Francisco, CA — Available Worldwide</p>
+                <p className="text-[hsl(220,10%,55%)] text-sm"> — Available Worldwide</p>
               </div>
             </div>
 
