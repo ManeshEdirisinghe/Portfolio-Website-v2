@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download, Briefcase, GraduationCap, Calendar, Info } from "lucide-react";
+import { Menu, X, Code2, Palette, Zap, Coffee, ExternalLink, Github, Mail, MapPin, Send, Linkedin, Twitter, Download, Briefcase, GraduationCap, Calendar, Info, Award } from "lucide-react";
 
 
 
@@ -12,6 +12,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
@@ -699,7 +700,142 @@ const ProjectsSection = () => {
 };
 
 // ==========================================
-// 5. SkillsSection Component
+// 5. CertificationsSection Component
+// ==========================================
+const certifications = [
+  {
+    title: "Project Leadership",
+    issuer: "LinkedIn Learning",
+    date: "Dec 17, 2025",
+    image: "project_leadership.png",
+  },
+  {
+    title: "Project Management Foundations: Communication",
+    issuer: "LinkedIn Learning",
+    date: "Dec 10, 2025",
+    image: "project_management.png",
+  },
+  {
+    title: "Diploma in Information Technology",
+    issuer: "University of Colombo",
+    date: "Aug 1, 2024",
+    image: "diploma_it.png",
+  },
+  {
+    title: "Introduction To Programming & C Programming Language",
+    issuer: "eNen",
+    date: "Sep 23, 2022",
+    image: "c_programming.png",
+  },
+  {
+    title: "Python for Beginners",
+    issuer: "University of Moratuwa",
+    date: "Jun 27, 2022",
+    image: "python_beginners.png",
+  }
+];
+
+const CertificationsSection = () => {
+  const [selectedCert, setSelectedCert] = useState(null);
+
+  return (
+    <section id="certifications" className="py-32 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16 text-center"
+        >
+          <p className="text-[#f5a623] font-mono text-sm mb-2">
+            // Continuous learning
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-bold">
+            Licenses & <span className="gradient-gold-text">Certifications</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {certifications.map((cert, idx) => (
+            <motion.div
+              key={cert.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              className="glass rounded-2xl flex flex-col overflow-hidden group cursor-pointer hover:glow-amber transition-all duration-500"
+              onClick={() => setSelectedCert(cert)}
+            >
+              <div className="w-full h-48 md:h-56 bg-black/40 relative overflow-hidden flex items-center justify-center p-4">
+                <img 
+                  src={cert.image} 
+                  alt={cert.title} 
+                  className="w-full h-full object-contain scale-100 group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div className="absolute inset-0 bg-[#f5a623]/0 group-hover:bg-[#f5a623]/10 transition-colors duration-500"></div>
+              </div>
+              
+              <div className="p-6 flex-1 flex flex-col justify-between border-t border-gray-800/50">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Award className="w-4 h-4 text-[#f5a623]" />
+                    <span className="text-[#f5a623] font-mono text-xs">{cert.date}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#f5a623] transition-colors">{cert.title}</h3>
+                </div>
+                <p className="text-[hsl(220,10%,60%)] text-sm font-medium mt-4">{cert.issuer}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <AnimatePresence>
+          {selectedCert && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+              onClick={() => setSelectedCert(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="relative max-w-5xl w-full flex flex-col items-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedCert(null)}
+                  className="absolute -top-12 md:-top-6 right-0 md:-right-12 p-2 bg-white/10 hover:bg-[#f5a623]/20 text-white hover:text-[#f5a623] rounded-full transition-colors z-10"
+                >
+                  <X size={24} />
+                </button>
+                
+                <div className="glass rounded-xl p-2 w-full shadow-2xl relative group bg-black/50 overflow-hidden text-center">
+                  <img
+                    src={selectedCert.image}
+                    alt={selectedCert.title}
+                    className="w-full max-h-[85vh] object-contain rounded-lg mx-auto"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity hidden md:block text-left">
+                    <h3 className="text-2xl font-bold text-white mb-1">{selectedCert.title}</h3>
+                    <p className="text-[#f5a623]">{selectedCert.issuer} • {selectedCert.date}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+// ==========================================
+// 6. SkillsSection Component
 // ==========================================
 const skillCategories = [
   {
@@ -1215,6 +1351,7 @@ export default function App() {
           <AboutSection />
           <TimelineSection />
           <ProjectsSection />
+          <CertificationsSection />
           <SkillsSection />
           <ContactSection />
           <Footer />
