@@ -882,7 +882,7 @@ const ContactSection = () => {
             </div>
 
             <div className="flex gap-4 pt-4">
-              {[Github, Linkedin, Twitter].map((Icon, i) => (
+              {[Github, Linkedin].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
