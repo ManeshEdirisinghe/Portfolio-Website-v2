@@ -175,7 +175,7 @@ const HeroSection = () => {
 
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <a
-                href="/resume.pdf"
+                href="/MADHURA%20MANESH%20EDIRISINGHE.pdf"
                 download="Manesh_Edirisinghe_Resume.pdf"
                 className="flex items-center gap-2 px-6 py-3 gradient-gold text-[#0f172a] rounded-xl font-bold hover:scale-105 transition-all glow-amber relative overflow-hidden group"
               >
