@@ -806,19 +806,18 @@ const ContactSection = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     
-    // TODO: Replace with your actual Web3Forms access key
-    const accessKey = "YOUR_WEB3FORMS_ACCESS_KEY_HERE"; 
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("https://formsubmit.co/ajax/edirisinghemadhura@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: accessKey,
-          ...formData,
+          _subject: `Portfolio message from ${formData.name}`,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
         }),
       });
 
@@ -829,7 +828,7 @@ const ContactSection = () => {
       } else {
         setSubmitStatus("error");
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -869,7 +868,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-medium">Email</p>
-                <p className="text-[hsl(220,10%,55%)] text-sm">alex@devstudio.com</p>
+                <p className="text-[hsl(220,10%,55%)] text-sm">edirisinghemadhura@gmail.com</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -878,7 +877,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="font-medium">Location</p>
-                <p className="text-[hsl(220,10%,55%)] text-sm">San Francisco, CA — Available Worldwide</p>
+                <p className="text-[hsl(220,10%,55%)] text-sm">Galle - SriLanka</p>
               </div>
             </div>
 
@@ -970,7 +969,7 @@ const ContactSection = () => {
             )}
             {submitStatus === "error" && (
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-400 text-sm text-center mt-2">
-                Failed to send message. Please check your access key.
+                Failed to send message. Please try again.
               </motion.p>
             )}
           </motion.form>
