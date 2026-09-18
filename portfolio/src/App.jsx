@@ -27,8 +27,13 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 glass-strong"
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#home" className="text-xl font-bold gradient-gold-text">
-          {"<dev />"}
+        <a href="#home" className="flex items-center gap-2 text-xl font-bold gradient-gold-text">
+          <img
+            src="/profilepic.png"
+            alt="Manesh Edirisinghe"
+            className="w-8 h-8 rounded-full object-cover border border-[#f5a623]/60 glow-amber"
+          />
+          {"Manesh Edirisinghe"}
         </a>
 
         {/* Desktop Menu */}
@@ -882,10 +887,15 @@ const ContactSection = () => {
             </div>
 
             <div className="flex gap-4 pt-4">
-              {[Github, Linkedin].map((Icon, i) => (
+              {[
+                { Icon: Github, href: "https://github.com/ManeshEdirisinghe" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/in/maneshedirisinghe" },
+              ].map(({ Icon, href }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-xl glass flex items-center justify-center text-[hsl(220,10%,55%)] hover:text-[#f5a623] hover:glow-amber transition-all duration-300"
                 >
                   <Icon size={18} />
